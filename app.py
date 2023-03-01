@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request
+from database.database import getOrders
 app = Flask(__name__)
  
  
 @app.route('/')
 def index():
-    return "Welcome to Procurement Tracking System. You can track your shipments here and also you can perform a lot of functions here."
+    orders=str(getOrders())
+    return orders
  
  
 if __name__ == '__main__':
