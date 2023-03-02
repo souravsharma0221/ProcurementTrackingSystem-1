@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+
+    <!-- Custom CSS file -->
+    <link rel="stylesheet" type="text/css" href="./../static/style.css">
+</head>
+<body id="signupPageBody">
+
+<!-- Start header -->
+<header id="header">
+    <div  class="strip d-flex">
+        <p id="signupHeader" class="font-rubik font-size-48">Sign Up</p>
+    </div>
+</header>
+<!-- !Start header -->
+<!-- <script>
+    alert("Phone Number already registered");
+</script>
+    <script>
+        alert("Email already registered");
+    </script>
+    <script>
+        alert("Passwords not matching");
+    </script> -->
+
+<!-- Main site -->
+<main>
+
+    <div id="signupForm">
+        <form method="post">
+            <div class="textFieldsDiv" id="firstRowSignup">
+                <input type="text" class="textfield" name="name" placeholder="Name" id="" required>
+                <input type="tel" pattern="[0-9]{10}" class="textfield" name="phone" placeholder="Phone" id="" required>
+                <input type="email" class="textfield" name="email" placeholder="Email" id="" required>
+            </div>
+            <div class="textFieldsDiv" id="secondRowSignup">
+                <input type="number" class="textfield" name="age" placeholder="Age" id="" required>
+                <input type="text" class="textfield" name="city" placeholder="City" id="" required>
+                <input type="number" pattern="[0-9]{6}" name="pincode" class="textfield" placeholder="Pincode" id="" required>
+            </div>
+            <div class="textFieldsDiv" id="thirdRowSignup">
+                <input type="text" class="textfield" name="password" placeholder="Password" id="" required>
+                <input type="text" class="textfield" name="cpassword" placeholder="Re-enter Password" id="" required>
+                <div class="textFieldsDiv" id="selectGenderDiv">
+                    <select name="gender" id="selectGender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="textFieldsDiv">
+                <Button id="signupButton">Sign Up</Button>
+            </div>
+        </form>
+    </div>
+</main>
+<!-- !Main site -->
+<!-- Footer section -->
+<footer>
+
+</footer>
+<!-- !Footer section -->
+
+</body>
+</html>

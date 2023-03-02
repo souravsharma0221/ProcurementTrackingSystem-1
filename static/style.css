@@ -1,0 +1,699 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&family=Raleway&family=Rubik&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=The+Nautigal:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Island+Moments&display=swap');
+/* Global classes */
+button, button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.img-dim {
+    width: 150px;
+    height: 250px;
+}
+
+/* Typography classes */
+.font-nautigal {
+    font-family: "The Nautigal", cursive;
+}
+.font-island-moments {
+    font-family: "Island Moments", cursive;
+}
+.font-baloo-bhaijan-2 {
+    font-family: "Baloo Bhaijan 2", cursive;
+}
+
+.font-rale {
+    font-family: "Raleway", cursive;
+}
+
+.font-rubik {
+    font-family: "Rubik", cursive;
+}
+
+.font-righteous {
+    font-family: "Righteous", cursive;
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+.font-size-16 {
+    font-size: 16px;
+}
+
+.font-size-18 {
+    font-size: 18px;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+.font-size-28 {
+    font-size: 28px;
+}
+
+.font-size-36 {
+    font-size: 36px;
+}
+
+.font-size-48 {
+    font-size: 48px;
+}
+
+.font-size-64 {
+    font-size: 64px;
+}
+
+.login-header {
+    font-weight: bold;
+    text-align: center;
+    background-color: #1edaf3;
+    font-size: 48px;
+}
+.signupMessage {
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 48px;
+    margin-top: 160px;
+}
+
+#divLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: fit-content;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.textFieldsLogin {
+    height: 24px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+#loginButton {
+    background-color: #85a0d2;
+    font-size: 18px;
+    width: 84px;
+    padding: 6px 6px;
+    border-radius: 16px;
+    border: none;
+    margin-top: 12px;
+}
+#proceedToLogin{
+    background-color: #85a0d2;
+    font-size: 18px;
+    width: 160px;
+    padding: 6px 6px;
+    border-radius: 16px;
+    border: none;
+    margin-top: 12px;
+}
+
+#loginButton:hover {
+    background-color: #9db8c0;
+    cursor: pointer;
+}
+
+#textBelowLoginButton {
+    color: white;
+    margin: 12px 0px 0px;
+    text-align: center;
+}
+
+#signupText {
+    color: burlywood;
+    text-decoration: none;
+    margin: auto;
+}
+
+.login-body,#signupMessagePageBody {
+    background-color: black;
+}
+
+#signinText {
+    margin-bottom: 24px;
+    color: white;
+    text-align: center;
+}
+
+#signupHeader {
+    text-align: center;
+    background-color: #1edaf3;
+    padding: 8px 0px;
+}
+
+#signupForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.textFieldsDiv {
+    display: flex;
+    flex-direction: row;
+    margin-left: 36px;
+    margin-right: 36px;
+    justify-content: space-evenly;
+}
+
+.textfield {
+    height: 24px;
+    width: 180px;
+    border-radius: 12px;
+    text-align: center;
+    background-color: white;
+    border: none;
+}
+
+#signupPageBody {
+    background-color: black;
+}
+
+#firstRowSignup, #secondRowSignup,#thirdRowSignup {
+    margin-top: 60px;
+}
+
+#signupButton {
+    background-color: #85a0d2;
+    font-size: 18px;
+    width: 120px;
+    padding: 6px 6px;
+    border-radius: 16px;
+    border: none;
+    margin-top: 60px;
+}
+
+#selectGenderDiv{
+    padding: 0;
+    margin: 0;
+}
+
+#selectGender {
+    width: 180px;
+    height: 28px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+#signupButton:hover {
+    background-color: #9db8c0;
+    cursor: pointer;
+}
+
+#divTop {
+    position: absolute;
+    right: 4px;
+    z-index: 1;
+}
+
+#contactUsAnchor {
+    position: absolute;
+    right: 4px;
+    z-index: 1;
+}
+
+#navbarHome {
+    margin-top: 28px;
+}
+
+.logoutWishlistAnchor {
+    font-weight: bold;
+}
+
+.color-primary {
+    color: #9ee674;
+}
+
+.color-primary-bg {
+    background: #709cee;
+}
+
+.color-second {
+    color: #7fef9e;
+}
+
+.color-second-bg {
+    background: #0e34b2;
+}
+
+.color-yellow {
+    color: #ffd289;
+}
+
+.color-yellow-bg {
+    background: #ffd289;
+}
+
+/*  top sale template   */
+#top-sale .owl-carousel .item .product a {
+    overflow: hidden;
+}
+#top-sale .owl-carousel .item .product img {
+    transition: transform 0.5s ease;
+}
+#top-sale .owl-carousel .item .product img:hover {
+    transform: scale(1.1);
+}
+#top-sale .owl-carousel .owl-nav button {
+    position: absolute;
+    top: 30%;
+    outline: none;
+}
+#top-sale .owl-carousel .owl-nav button.owl-prev {
+    left: 0;
+}
+#top-sale .owl-carousel .owl-nav button.owl-prev span,
+#top-sale .owl-carousel .owl-nav button.owl-next span {
+    font-size: 35px;
+    color: #9ee674;
+    padding: 0 1rem;
+}
+#top-sale .owl-carousel .owl-nav button.owl-prev span {
+    margin-left: -4rem;
+}
+#top-sale .owl-carousel .owl-nav button.owl-next {
+    right: 0;
+}
+#top-sale .owl-carousel .owl-nav button.owl-next span {
+    margin-right: -4rem;
+}
+
+/*   Special Price Section Template */
+#special-price .grid .grid-item {
+    margin-right: 1.2rem;
+    margin-top: 1rem;
+}
+
+.productStarFavourite {
+    transform: scale(1.5);
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+#containerProfile {
+    max-width: 100%;
+    width: 100%;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.main {
+    padding: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.topbar {
+    background-color: #7fef9e;
+    overflow: hidden;
+}
+
+.topbar a {
+    float: right;
+    color: whitesmoke;
+    text-align: center;
+    padding: 20px 26px;
+    text-decoration: none;
+    font-size: 26px;
+}
+
+.sidebar {
+    background-color: #333;
+    color: white;
+    height: 100%;
+}
+
+.sidebar a {
+    margin-left: 10px;
+    display: block;
+    color: white;
+    padding-bottom: 10px;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    background-color: whitesmoke;
+}
+
+#profileImage {
+    margin: auto auto;
+}
+
+#containerAboutUs {
+    max-width: 100%;
+    width: 100%;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.team {
+    margin: 75px 0;
+}
+
+#h1Profile{
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #333;
+    padding-bottom: 10px;
+}
+
+#h1Profile:after {
+    content: "";
+    background: #333;
+    display: block;
+    height: 3px;
+    width: 150px;
+    margin: 10px auto;
+}
+
+.profile {
+    margin-top: 25px;
+}
+
+.profile .img-box {
+    opacity: 1;
+    display: block;
+    position: relative;
+}
+
+.imageAboutUs {
+    height: 390px;
+    width: 275px;
+}
+
+.profile h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.profile h3 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.img-box::after {
+    content: "";
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.img-box ul {
+    margin: 0;
+    padding: 20px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.img-box ul li {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    margin: 3px;
+    padding: 7px;
+    display: inline-block;
+}
+
+.img-box a {
+    color: #fff;
+}
+
+.img-box:hover::after {
+    opacity: 1;
+}
+
+.img-box:hover ul {
+    opacity: 1;
+}
+
+.img-box a:hover li {
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.img-box:after, .img-box ul, .img-box ul li {
+    transition: all 0.5s ease-in-out 0s;
+}
+
+.aboutUs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#containerSell {
+    align-content: center;
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+#containerSell .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+#containerSell .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+#containerSell form .product-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+
+#sellForm .product-details .input-box {
+    margin-bottom: 15px;
+    width: calc(50% - 20px);
+}
+
+#sellForm .input-box span.details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.product-details .input-box input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.product-details .input-box input:focus,
+.product-details .input-box input:valid {
+    border-color: #9b59b6;
+}
+
+#sellForm .product-type .product-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#productTypeSection {
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
+    justify-content: space-between;
+}
+
+#productTypeSection label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#productTypeSection label .dot {
+    height: 18px;
+    width: 18px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#dot-1:checked ~ #productTypeSection label .one,
+#dot-2:checked ~ #productTypeSection label .two,
+#dot-3:checked ~ #productTypeSection label .three,
+#dot-4:checked ~ #productTypeSection label .four {
+    border-color: #d9d9d9;
+    background: #9b59b6;
+}
+
+#sellForm input[type=radio] {
+    display: none;
+}
+
+#sellForm .button {
+    height: 45px;
+    margin: 35px 0;
+}
+
+#sellForm .button input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #71b7e6, #0e34b2);
+    transition: all 0.3s ease;
+}
+
+#sellForm .button input:hover {
+    background: linear-gradient(-135deg, #71b7e6, #0e34b2);
+}
+
+#fileInput{
+    background-color: #709cee;
+}
+
+#uploadFileLabel {
+    color: white;
+    height: 45px;
+    width: 300px;
+    background-color: #709cee;
+    position: absolute;
+    margin: auto;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+#uploadFileLabel:hover {
+    cursor: pointer;
+}
+
+#product-description {
+    height: 90px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+#logoutAnchor{
+    text-decoration: unset;
+}
+
+.productImageProductDetails{
+    height: 350px;
+    width: 260px;
+}
+#stukartlogo{
+    font-family: "The Nautigal", cursive;
+    font-size: 70px;
+    color: white;
+    position: absolute;
+    z-index: 1;
+    left: 6px;
+    top: 15px;
+}
+
+#footer{
+    background: #111;
+    height: auto;
+    width: 100vw;
+    font-family: "Open Sans";
+    padding-top: 40px;
+    color:#fff;
+}
+
+#footer-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.footer-content h3{
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-transform: capitalize;
+    line-height: 3rem;
+
+}
+
+.footer-content p{
+    max-width: 500px;
+    margin: 10px auto;
+    line-height: 28px;
+    font-size: 14px;
+}
+/*# sourceMappingURL=style.css.map */
+
+/* Admin Dashboard */
+
+
