@@ -1,0 +1,17 @@
+{%include 'header.html' %}
+
+<section bgcolor="#dobdf4" class="my-4">
+    <h1 align="center" style="color:#2d545e;font-family:verdana"><u> Predictions on your review</u></h1>
+    <h3 align="center" >Your product review:</h3>
+    <div align="center" style="color:blue;font-family:verdana">{{ content }}</div>
+    <h3 align="center">Prediction:</h3>
+    <div align="center" style="color:red; font-family:verdana">This product review is <strong>{{ prediction }}</strong>
+     (probability: {{ probability }}%).</div>
+    <div id='button'align="center"><br/><br/>
+     <form align="center" action="/">
+     <input type="submit" style="color:#2d545e" value='Submit another review'>
+     </form>
+    </div>
+    </section>
+
+{%include 'footer.html' %}
