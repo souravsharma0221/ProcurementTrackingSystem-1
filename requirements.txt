@@ -5,4 +5,5 @@ pymysql
 statsmodels
 wtforms
 joblib
+scikit-learn
 
