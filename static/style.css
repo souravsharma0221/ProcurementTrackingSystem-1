@@ -163,6 +163,11 @@ button, button:focus {
     padding: 8px 0px;
 }
 
+.alertSignUp{
+    width: 50%;
+    align-self: center;
+}
+
 #signupForm {
     display: flex;
     flex-direction: column;

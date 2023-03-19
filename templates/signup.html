@@ -7,7 +7,8 @@
     <title>Sign Up</title>
 
     <!-- Custom CSS file -->
-    <link rel="stylesheet" type="text/css" href="./../static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body id="signupPageBody">
 
@@ -18,28 +19,19 @@
     </div>
 </header>
 <!-- !Start header -->
-<!-- <script>
-    alert("Phone Number already registered");
-</script>
-    <script>
-        alert("Email already registered");
-    </script>
-    <script>
-        alert("Passwords not matching");
-    </script> -->
 
 <!-- Main site -->
 <main>
 
     <div id="signupForm">
-        <form method="post">
+        <form method="post" action="/signup">
             <div class="textFieldsDiv" id="firstRowSignup">
                 <input type="text" class="textfield" name="name" placeholder="Name" id="" required>
                 <input type="tel" pattern="[0-9]{10}" class="textfield" name="phone" placeholder="Phone" id="" required>
                 <input type="email" class="textfield" name="email" placeholder="Email" id="" required>
             </div>
             <div class="textFieldsDiv" id="secondRowSignup">
-                <input type="number" class="textfield" name="age" placeholder="Age" id="" required>
+                <input type="number" class="textfield" name="age" min="12" max="150" placeholder="Age" id="" required>
                 <input type="text" class="textfield" name="city" placeholder="City" id="" required>
                 <input type="number" pattern="[0-9]{6}" name="pincode" class="textfield" placeholder="Pincode" id="" required>
             </div>
@@ -58,6 +50,15 @@
                 <Button id="signupButton">Sign Up</Button>
             </div>
         </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alertSignUp alert alert-danger my-3" role="alert">
+               <h6 style="width: 100%; text-align: center;"> {{message}}</h6>
+              </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
     </div>
 </main>
 <!-- !Main site -->
