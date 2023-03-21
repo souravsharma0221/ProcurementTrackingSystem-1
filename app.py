@@ -3,7 +3,7 @@ from database.database import getOrders
 from database.products import getAllProducts,getRequiredProducts
 from models.review_analysis.review import classify
 from wtforms import Form, TextAreaField, validators, SelectField
-import pickle, joblib,time,random
+import pickle, joblib,time,random,os
 from database.loginSignup import verify_credentials,addUser,getUserId
 app = Flask(__name__)
 
@@ -114,5 +114,5 @@ def user_home():
     return redirect('/login')
    
 if __name__ == '__main__':
-    app.secret_key = '&mittu000'
+    app.secret_key = os.environ['SECRET_KEY']
     # app.run(debug=True)
