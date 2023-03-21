@@ -66,9 +66,12 @@ def signup():
        elif password!=cpassword:
            flash("Passwords are not matching")
        else:
-           addUser(name,phone,password,email,city,role,pincode,age,gender)  
-           flash("Signup successful")
-           return redirect("/login")
+           status=addUser(name,phone,password,email,city,role,pincode,age,gender)
+           if(status=="success"):  
+            flash("Signup successful")
+            return redirect("/login")
+           else:
+               flash(status)
 
   return render_template('signup.html') 
 
@@ -82,4 +85,4 @@ def user_home():
    
 if __name__ == '__main__':
     app.secret_key = '&mittu000'
-    app.run(debug=True)
+    # app.run(debug=True)
