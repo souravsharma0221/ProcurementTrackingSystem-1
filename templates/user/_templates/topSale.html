@@ -25,12 +25,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         <hr>
         <!-- owl carousel  -->
         <div class="owl-carousel owl-theme">
+            {% for product in topsale %}
             <!-- <?php foreach ($product_shuffle as $item){ ?> -->
             <div class="item py-2 px-4">
                 <div class="product font-rale">
-                    <a href="#"><img src="#" alt="product1" class="img-fluid img-dim"></a>
+                    <a href="#"><img src={{product.img}} alt="product1" class="img-fluid img-dim"></a>
                     <div class="text-center">
-                        <h6>455</h6>
+                        <h6>{{product.title}}</h6>
                         <div class="rating text-warning font-size-12">
                             <form method="post">
                                 <input type="hidden" name="item_id" value="46">
@@ -46,7 +47,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                             </form>
                         </div>
                         <div class="price py-2">
-                            <span>Rs 6161</span>
+                            <span>Rs {{product.price}}</span>
                         </div>
                         <form method="post">
                             <input type="hidden" name="item_id" value="4">
@@ -63,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     </div>
                 </div>
             </div>
-            <!-- <?php } // closing foreach function ?> -->
+            {% endfor %}
         </div>
         <!-- !owl carousel  -->
     </div>

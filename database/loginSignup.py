@@ -29,4 +29,8 @@ def checkIfRegisteredAlready(phone,email,role):
          return "Email already registered"
      else:
          return "proceed"
+     
+def getUserId(phone,role):
+         userid=conn.execute(text("select id from users where phone = :phone and role = :role").bindparams(phone=phone,role =role)).fetchone()
+         return str(userid[0])
 
