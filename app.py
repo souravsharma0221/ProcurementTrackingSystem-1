@@ -8,6 +8,7 @@ from wtforms import Form, TextAreaField, validators, SelectField
 import pickle, joblib,time,random,os
 from database.loginSignup import verify_credentials,addUser,getUserId,getProfile
 app = Flask(__name__)
+app.secret_key = os.environ['SECRET_KEY']
 
 # class ReviewForm(Form):
 #     productreview = TextAreaField('',[validators.DataRequired(),validators.length(min=15)])   
@@ -175,6 +176,4 @@ def user_product_details(product_id):
     return redirect('/login')    
    
 if __name__ == '__main__':
-    app.config['SECRET_KEY']= '#123miAhhndDSsasjfb&&^&(hjncjbjfoas54656+546'
-#     app.config['SESSION_TYPE'] = 'filesystem'
     app.run()
