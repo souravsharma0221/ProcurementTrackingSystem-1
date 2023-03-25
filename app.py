@@ -175,6 +175,6 @@ def user_product_details(product_id):
     return redirect('/login')    
    
 if __name__ == '__main__':
-    app.secret_key = os.environ['SECRET_KEY']
+    app.secret_key = os.environ['SECRET_KEY'] or 'default_secret_key'
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run()
