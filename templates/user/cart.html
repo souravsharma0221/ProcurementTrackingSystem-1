@@ -1,0 +1,8 @@
+{% include 'header.html' %}
+{% if not cartProducts %}
+{% include './user/_templates/notFound/_cart.html' %}
+{% else %}
+{% include './user/_templates/_cart.html' %}
+{% endif %}
+{% include './user/_templates/_topSale.html' %}
+{% include 'footer.html' %}

@@ -34,3 +34,7 @@ def getUserId(phone,role):
          userid=conn.execute(text("select id from users where phone = :phone and role = :role").bindparams(phone=phone,role =role)).fetchone()
          return str(userid[0])
 
+def getProfile(userid):
+         result=conn.execute(text("select * from users where id = :userid").bindparams(userid=userid)).fetchone()
+         return dict(result._mapping)
+

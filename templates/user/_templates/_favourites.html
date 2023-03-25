@@ -1,0 +1,46 @@
+<!-- Favourites -->
+<section id="favourites">
+    <div class="container py-5">
+        <h4 class="font-rubik font-size-20">Favourites ({{products|length}})</h4>
+        <hr>
+        <!-- owl carousel  -->
+        <div class="owl-carousel owl-theme">
+            {% for product in products %}
+            <div class="item py-2 px-4">
+                <div class="product font-rale">
+                    <a href="{{ url_for('user_product_details', product_id=product.id) }}"><img src="{{product.img}}" class="img-fluid img-dim"></a>
+                    <div class="text-center">
+                        {% if product.title|length > 15 %}
+                        <h6>{{ product.title[:15] }}...</h6>
+                        {% else %}
+                        <h6>{{ product.title }}</h6>
+                        {% endif %}
+                        <div class="rating text-warning font-size-12">
+                            <form action="{{ url_for('update_favourites')}}" method='POST'>
+                                <input type="hidden" name="product_id" value={{product.id}}>
+                                {% if product.id in favourites %}
+                                 <button type="submit" name="favourites_remove_submit" class="btn btn-success font-size-12"> <span><i class="fas fa-star"></i></span></button>
+                                 {% else %}
+                                 <button type="submit" name="favourites_add_submit" class="btn font-size-12"> <span><i class="far fa-star"></i></span></button>
+                                 {% endif %}
+                            </form>
+                        </div>
+                        <div class="price py-2">
+                            <span>Rs {{product.price}}</span>
+                        </div>
+                        <form action="{{ url_for('update_cart')}}" method="post">
+                            <input type="hidden" name="product_id" value="{{product.id}}">
+                            {% if product.id in cart %}
+                                <button type="submit" disabled class="btn btn-success font-size-12">In the Cart</button>
+                                {% else %}
+                                <button type="submit" name="cart_add_submit" class="btn btn-warning font-size-12">Add to Cart</button>
+                                {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        <!-- !owl carousel  -->
+    </div>
+</section>
+<!-- !Favourites  -->

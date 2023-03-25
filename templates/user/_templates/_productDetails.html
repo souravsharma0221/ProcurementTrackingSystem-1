@@ -1,0 +1,63 @@
+<!--   product  -->
+<section id="product" class="py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <img src="{{product.img}}" alt="product" class="img-fluid productImageProductDetails">
+
+            </div>
+            <div class="col-sm-6 py-5">
+                <h5 class="font-baloo font-size-20">{{product.title}}</h5>
+                <small>by {{product.seller}}</small>
+                <div class="d-flex">
+                    <div class="my-2">
+                        <form action="{{ url_for('update_favourites')}}" method='POST'>
+                            <input type="hidden" name="product_id" value={{product.id}}>
+                            {% if product.id in favourites %}
+                             <button type="submit" name="favourites_remove_submit" class="btn btn-success font-size-12"> <span><i class="fas fa-star"></i></span></button>
+                             {% else %}
+                             <button type="submit" name="favourites_add_submit" class="btn font-size-12"> <span><i class="far fa-star"></i></span></button>
+                            {% endif %}
+                        </form> 
+                    </div>
+                </div>
+                <hr class="m-0">
+
+                <!---    product price       -->
+                <table class="my-3">
+                    <tr class="font-rale font-size-14">
+                        <td>Deal Price:</td>
+                        <td class="font-size-20 text-danger">Rs <span>{{product.price}}</span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
+                    </tr>
+                </table>
+                <!---    !product price       -->
+
+                <hr>
+                <div class="form-row pt-4 font-size-16 font-baloo">
+                    <div class="col">
+                        <form method="post">
+                        <button type="submit" name="proceed_to_buy" class="btn btn-danger form-control">Place Order</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form action="{{ url_for('update_cart')}}" method="post">
+                            <input type="hidden" name="product_id" value="{{product.id}}">
+                            {% if product.id in cart %}
+                                <button type="submit" disabled class="btn btn-success font-size-12">In the Cart</button>
+                                {% else %}
+                                <button type="submit" name="cart_add_submit" class="btn btn-warning font-size-12">Add to Cart</button>
+                                {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 py-4">
+                <h6 class="font-rubik">Product Description</h6>
+                <hr>
+                <p class="font-rale font-size-14">{{product.description}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!--   !product  -->

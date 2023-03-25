@@ -55,22 +55,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto font-rubik">
                     <li class="nav-item">
-                        <a class="nav-link font-size-20" href="index.php">Home</a>
+                        <a class="nav-link font-size-20" href="{{ url_for('user_home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-size-20" href="favourites.php">Favourites</a>
+                        <a class="nav-link font-size-20" href="{{ url_for('user_favourites') }}">Favourites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-size-20" href="orders.php">My Orders</a>
+                        <a class="nav-link font-size-20" href="{{ url_for('user_orders') }}">My Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-size-20" href="profile.php">My Profile</a>
+                        <a class="nav-link font-size-20" href="{{ url_for('user_profile') }}">My Profile</a>
                     </li>
                 </ul>
                 <form action="#" class="font-size-14 font-rale">
-                    <a href="cart.php" class="py-2 rounded-pill color-primary-bg">
+                    <a href="{{ url_for('user_cart') }}" class="py-2 rounded-pill color-primary-bg">
                         <span class="font-size-16 px-2 text-white "><i class="fas fa-shopping-cart"></i></span>
-                        <span class="px-3 py-2 rounded-pill text-dark bg-light">12</span>
+                        <span class="px-3 py-2 rounded-pill text-dark bg-light">{{cart|length}}</span>
                     </a>
                 </form>
                 </form>

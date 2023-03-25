@@ -47,7 +47,7 @@
             </div>
         </form>
         <p id="textBelowLoginButton">Don't have an account?</p>
-        <a href="./signup" class="font-size-14" id="signupText">Register here</a>
+        <a href="{{ url_for('signup') }}" class="font-size-14" id="signupText">Register here</a>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}

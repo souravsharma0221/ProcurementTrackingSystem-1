@@ -1,14 +1,16 @@
 from flask import Flask, render_template, request, redirect, session,flash,jsonify
 from database.database import getOrders
-from database.products import getAllProducts,getRequiredProducts
+from database.cart import getAllCartItems,getProductDetailsCart,addToCart,removeFromCart,getSubtotalForCart
+from database.favourites import getAllFavourites,addToFavourites,removeFromFavourites,getProductDetailsInFavourites
+from database.products import getAllProducts,getParticularProduct
 from models.review_analysis.review import classify
 from wtforms import Form, TextAreaField, validators, SelectField
 import pickle, joblib,time,random,os
-from database.loginSignup import verify_credentials,addUser,getUserId
+from database.loginSignup import verify_credentials,addUser,getUserId,getProfile
 app = Flask(__name__)
 
-class ReviewForm(Form):
-    productreview = TextAreaField('',[validators.DataRequired(),validators.length(min=15)])   
+# class ReviewForm(Form):
+#     productreview = TextAreaField('',[validators.DataRequired(),validators.length(min=15)])   
 
 
 def checkLogin():
@@ -49,24 +51,31 @@ def login():
 
 
 
-@app.route('/submitReview',methods=['POST', 'GET'])
-def submitReview():
-    form = ReviewForm(request.form)
-    if request.method == 'POST' and form.validate():
-        review = request.form['productreview']
-        y, proba = classify(review)
-        return render_template('user/_templates/reviewResponse.html',content=review,prediction=y,probability=round(proba*100, 2))
- 
+# @app.route('/submitReview',methods=['POST', 'GET'])
+# def submitReview():
+#     form = ReviewForm(request.form)
+#     if request.method == 'POST' and form.validate():
+#         review = request.form['productreview']
+#         y, proba = classify(review)
+#         return render_template('user/_templates/reviewResponse.html',content=review,prediction=y,probability=round(proba*100, 2))
 
-@app.route('/api/allProducts')
-def allProducts():
-    products=getAllProducts()
-    return jsonify(products)
-
-@app.route('/api/products/<category>/<gender>')
-def requiredProducts(category,gender):
-    products=getRequiredProducts(category,gender)
-    return jsonify(products)
+@app.route('/api/favourites/update',methods=['POST','GET'])
+def update_favourites():
+    if request.method == 'POST':
+     if 'favourites_add_submit' in request.form:
+        addToFavourites(session['user_id'],request.form.get('product_id'))
+     elif 'favourites_remove_submit' in request.form:
+        removeFromFavourites(session['user_id'],request.form.get('product_id'))  
+    return redirect(request.headers.get('Referer')) 
+   
+@app.route('/api/cart/update',methods=['POST','GET'])
+def update_cart():
+    if request.method == 'POST':
+     if 'cart_add_submit' in request.form:
+        addToCart(session['user_id'],request.form.get('product_id'))
+     elif 'cart_remove_submit' in request.form:
+        removeFromCart(session['user_id'],request.form.get('product_id'))  
+    return redirect(request.headers.get('Referer'))    
 
 @app.route('/signup',methods=['POST', 'GET'])
 def signup():
@@ -106,13 +115,66 @@ def admin_home():
 @app.route('/user/home')
 def user_home():
   if checkLogin():
+    cart=getAllCartItems(session['user_id'])
     allProducts = getAllProducts()
     topsale=allProducts.copy()
     random.shuffle(topsale)
-    return render_template('user/index.html',allProducts=allProducts,topsale=topsale) 
+    favourites=getAllFavourites(session['user_id'])
+    return render_template('user/index.html',allProducts=allProducts,topsale=topsale,favourites=favourites,cart=cart) 
   else:
     return redirect('/login')
+  
+@app.route('/user/favourites')
+def user_favourites():
+  if checkLogin():
+    cart=getAllCartItems(session['user_id'])
+    favourites=getAllFavourites(session['user_id'])
+    products=getProductDetailsInFavourites(favourites)
+    return render_template('user/favourites.html',products=products,favourites=favourites,cart=cart) 
+  else:
+    return redirect('/login')  
+  
+@app.route('/user/orders')
+def user_orders():
+  if checkLogin():
+    cart=getAllCartItems(session['user_id'])
+    return render_template('user/favourites.html',cart=cart) 
+  else:
+    return redirect('/login')  
+  
+@app.route('/user/profile')
+def user_profile():
+  if checkLogin():
+    cart=getAllCartItems(session['user_id'])
+    profile=getProfile(session['user_id'])
+    return render_template('user/profile.html',profile=profile,cart=cart) 
+  else:
+    return redirect('/login') 
+   
+@app.route('/user/cart')
+def user_cart():
+  if checkLogin():
+    favourites=getAllFavourites(session['user_id'])
+    cart=getAllCartItems(session['user_id'])
+    cartProducts=getProductDetailsCart(cart)
+    subTotal=getSubtotalForCart(cart)
+    topsale = getAllProducts()
+    return render_template('user/cart.html',cartProducts=cartProducts,topsale=topsale,favourites=favourites,subTotal=subTotal,cart=cart) 
+  else:
+    return redirect('/login') 
+
+@app.route('/user/product/description/<product_id>')
+def user_product_details(product_id):
+  if checkLogin():
+    favourites=getAllFavourites(session['user_id'])
+    cart=getAllCartItems(session['user_id'])
+    product=getParticularProduct(product_id)
+    topsale = getAllProducts()
+    return render_template('user/productDetails.html',topsale=topsale,favourites=favourites,cart=cart,product=product) 
+  else:
+    return redirect('/login')    
    
 if __name__ == '__main__':
     app.secret_key = os.environ['SECRET_KEY']
+    app.config['SESSION_TYPE'] = 'filesystem'
     # app.run(debug=True)

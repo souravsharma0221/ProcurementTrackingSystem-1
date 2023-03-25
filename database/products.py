@@ -10,10 +10,6 @@ def getAllProducts():
         random.shuffle(products)         
         return products        
 
-def getRequiredProducts(category,gender):
-        result=conn.execute(text("select * from products where category=:category and gender=:gender").bindparams(category=category,gender=gender)).all()
-        products=[]
-        for row in result:
-                products.append(dict(row._mapping))
-        random.shuffle(products)
-        return products
+def getParticularProduct(product_id):
+        result=conn.execute(text("select * from products where id=:id").bindparams(id=product_id)).fetchone()
+        return dict(result._mapping) 

@@ -1,0 +1,67 @@
+<!-- Shopping cart section  -->
+<section id="cart" class="py-3 mb-5">
+    <div class="container-fluid w-75">
+        <h5 class="font-baloo font-size-20">Shopping Cart</h5>
+
+        <!--  shopping cart items   -->
+        <div class="row">
+            <div class="col-sm-9">
+                {% for product in cartProducts %}
+                <!-- cart item -->
+                <div class="row border-top py-3 mt-3">
+                    <div class="col-sm-2">
+                        <a href="{{ url_for('user_product_details', product_id=product.id) }}"> <img src="{{product.img}}" style="height: 180px;" alt="cart1"
+                             class="img-fluid"></a>
+                    </div>
+                    <div class="col-sm-8">
+                                <h5 class="font-baloo font-size-20">{{ product.title }}</h5>
+                        <small>by {{product.seller}}</small>
+                        <!-- Add to favourite -->
+                        <div class="d-flex">
+                            <div class="rating text-warning font-size-12">
+                                    <form action="{{ url_for('update_favourites')}}" method='POST'>
+                                        <input type="hidden" name="product_id" value={{product.id}}>
+                                        {% if product.id in favourites %}
+                                         <button type="submit" name="favourites_remove_submit" class="btn btn-success font-size-12"> <span><i class="fas fa-star"></i></span></button>
+                                         {% else %}
+                                         <button type="submit" name="favourites_add_submit" class="btn font-size-12"> <span><i class="far fa-star"></i></span></button>
+                                         {% endif %}
+                                    </form>
+                            </div>
+                        </div>
+                        <!--  !Add to favourite-->
+
+                        <form action="{{ url_for('update_cart')}}" method="post">
+                            <input type="hidden" name="product_id" value="{{product.id}}">
+                            <button type="submit" name="cart_remove_submit" class="btn btn-warning my-2 font-baloo px-3">Delete</button>
+                        </form>
+
+                    </div>
+
+                    <div class="col-sm-2 text-right">
+                        <div class="font-size-20 text-danger font-baloo">
+                            Rs <span class="product_price" data-id="0">{{product.price}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- !cart item -->
+                {% endfor %}
+            <!-- subtotal section-->
+            <div class="col-sm-3">
+                <div class="sub-total border text-center mt-2">
+                    <div class="border-top py-4">
+                        <h5 class="font-baloo font-size-20">Subtotal ( {{cartProducts|length}} item):&nbsp; <span
+                                class="text-danger">Rs <span class="text-danger" id="deal-price">{{subTotal}}</span>
+                                    </span> </h5>
+                        <form method="post">
+                        <button type="submit" name="proceed_to_buy" class="btn btn-warning mt-3">Place Order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- !subtotal section-->
+        </div>
+        <!--  !shopping cart items   -->
+    </div>
+</section>
+<!-- !Shopping cart section  -->
