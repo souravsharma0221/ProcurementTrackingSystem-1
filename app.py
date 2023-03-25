@@ -177,4 +177,4 @@ def user_product_details(product_id):
 if __name__ == '__main__':
     app.secret_key = os.environ['SECRET_KEY']
     app.config['SESSION_TYPE'] = 'filesystem'
-    # app.run(debug=True)
+    app.run()
