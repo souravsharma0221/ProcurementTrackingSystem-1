@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session,flash,jsonify
 from database.database import getOrders
 from database.review import submitReview,getReviews
-from database.orders import addToOrders,getOrders,getOrderDetails,getOrderId
+from database.orders import addToOrders,getOrders,getOrderDetails,getOrderId,getOrderStatus
 from database.cart import getAllCartItems,getProductDetailsCart,addToCart,removeFromCart,getSubtotalForCart,emptyCart
 from database.favourites import getAllFavourites,addToFavourites,removeFromFavourites,getProductDetailsInFavourites
 from database.products import getAllProducts,getParticularProduct,getSeller
@@ -28,7 +28,6 @@ def logout():
     session.clear()
     return redirect('/login')
 
-
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
     if(request.method == 'POST'):
@@ -40,7 +39,6 @@ def login():
             session['user_id']=userId
             if role == 'Admin':
                 return redirect('admin/home')
-            
             else:
                 return redirect('user/home')
         else:
@@ -129,7 +127,8 @@ def user_orders():
     cart=getAllCartItems(session['user_id'])
     orders=getOrders(session['user_id'])
     orderDetails=getOrderDetails(orders)
-    return render_template('user/myOrders.html',cart=cart,orderDetails=orderDetails,submittedReviews=submittedReviews) 
+    orderStatus=getOrderStatus(orders)
+    return render_template('user/myOrders.html',cart=cart,orderDetails=orderDetails,submittedReviews=submittedReviews,orderStatus=orderStatus) 
   else:
     return redirect('/login')  
   

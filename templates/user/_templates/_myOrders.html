@@ -21,14 +21,24 @@
                             </div>
                             <div>
                                 {% set matching_reviews = submittedReviews|selectattr('product_id', '==', product.id)|list %}
-                                {% if not matching_reviews %}
+                                {% set matching_order_id = submittedReviews|selectattr('order_id', '==', product.order_id)|list %}
+                                {% set order_status = orderStatus|selectattr('order_id', '==', product.order_id)|list %}
+                                {% if matching_reviews and matching_order_id %}
+                                <p class="fs-1" style="color: gold;"><strong>{{order_status[0]['status']}}</strong></p>
+                                <br>
+                                 <button type="button" disabled class="btn btn-secondary">Reviewed</button>
+                                {% elif order_status[0]['status']=="Delivered" %}
+                                <p class="fs-1" style="color: gold;"><strong>{{order_status[0]['status']}}</strong></p>
+                                <br>
                                 <form method="post" action="{{url_for('write_review')}}">
                                     <input type="hidden" name="product_id" value="{{product.id}}">
                                     <input type="hidden" name="order_time" value="{{ key }}">
                                     <button type="submit" class="btn btn-success">Write Review</button>
                                 </form>
                                 {% else %}
-                                <button type="button" disabled class="btn btn-secondary">Reviewed</button>
+                                <p class="fs-1" style="color: gold;"><strong>{{order_status[0]['status']}}</strong></p>
+                                <br>
+                                <strong>Delivery Expected by </strong>{{order_status[0]['expected_delivery']}}
                                 {% endif %}
                             </div>
                         </div>
