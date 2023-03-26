@@ -13,3 +13,7 @@ def getAllProducts():
 def getParticularProduct(product_id):
         result=conn.execute(text("select * from products where id=:id").bindparams(id=product_id)).fetchone()
         return dict(result._mapping) 
+
+def getSeller(productId):
+        result=conn.execute(text("select seller from products where id=:id").bindparams(id=productId)).fetchone()
+        return str(result[0])

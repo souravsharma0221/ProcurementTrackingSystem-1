@@ -53,8 +53,8 @@
                         <h5 class="font-baloo font-size-20">Subtotal ( {{cartProducts|length}} item):&nbsp; <span
                                 class="text-danger">Rs <span class="text-danger" id="deal-price">{{subTotal}}</span>
                                     </span> </h5>
-                        <form method="post">
-                        <button type="submit" name="proceed_to_buy" class="btn btn-warning mt-3">Place Order</button>
+                        <form method="get" action="{{ url_for('user_cart_order') }}">
+                        <button type="submit" name="proceed_to_buy" class="btn btn-warning mt-3">Proceed to Checkout</button>
                         </form>
                     </div>
                 </div>

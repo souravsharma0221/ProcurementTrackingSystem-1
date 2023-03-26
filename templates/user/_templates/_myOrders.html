@@ -1,0 +1,45 @@
+<!-- Orders section  -->
+<section id="cart" class="py-3 mb-5">
+    <div class="container-fluid w-75" style="width: 100%;">
+        {% for key,value in orderDetails.items() %}
+        <h5 class="font-rubik font-size-20">Ordered on {{key}}</h5>
+        <hr class="border border-primary border-3 opacity-75">
+        <!-- Order items   -->
+        <div class="row">
+            <div class="col-sm-9">
+                {% for product in value %}
+                        <!-- order item -->
+                        <div class="row border-bottom py-3 mt-3">
+                            <div class="col-sm-2">
+                                <img src="{{product.img}}" style="height: 180px;" alt="order"
+                                     class="img-fluid">
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="font-baloo font-size-20">{{product.title}}</h5>
+                                <small>by {{product.seller}}</small>
+
+                            </div>
+                            <div>
+                                {% set matching_reviews = submittedReviews|selectattr('product_id', '==', product.id)|list %}
+                                {% if not matching_reviews %}
+                                <form method="post" action="{{url_for('write_review')}}">
+                                    <input type="hidden" name="product_id" value="{{product.id}}">
+                                    <input type="hidden" name="order_time" value="{{ key }}">
+                                    <button type="submit" class="btn btn-success">Write Review</button>
+                                </form>
+                                {% else %}
+                                <button type="button" disabled class="btn btn-secondary">Reviewed</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- !order item -->
+                        {% endfor %}
+                        
+            </div>
+            
+            <!--  !Order items   -->
+        </div>
+        <hr class="border border-primary border-3 opacity-75">
+                        {% endfor %}
+</section>
+<!-- !Orders section  -->

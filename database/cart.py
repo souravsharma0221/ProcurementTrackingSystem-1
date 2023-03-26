@@ -27,3 +27,6 @@ def getSubtotalForCart(cart):
         result=conn.execute(text("select price from products where id=:id").bindparams(id=id)).fetchone()
         subtotal+=int(result[0])
     return subtotal
+
+def emptyCart(userId):
+    result=conn.execute(text("delete from cart where user_id=:userId").bindparams(userId=userId))

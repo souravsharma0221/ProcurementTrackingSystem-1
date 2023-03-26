@@ -1,0 +1,27 @@
+<body class="paymentBody">
+<header id="paymentHeader"> 
+	<div class="paymentContainer">
+		<div class="left">
+			<h3>BILLING ADDRESS</h3>
+			<form id="checkoutForm" method="post" action="{{url_for('user_order_success')}}">
+				Address
+				<input type="text" name="address" placeholder="Enter address" required>
+				
+				City
+				<input type="text" name="city" placeholder="Enter City" required>
+
+				State
+				<input type="text" name="state" placeholder="Enter State" required>
+
+				Zip code
+				<input type="text" pattern="[0-9]{6}" name="pincode" placeholder="Zip code" required>
+				<input  value="Place Order" type="submit" name="">
+			</form>
+		</div>
+		<div class="right">
+			<h3>Order Details</h3>
+			Subtotal: Rs {{orderPrice}}	
+		</div>
+	</div>
+</header>
+</body>

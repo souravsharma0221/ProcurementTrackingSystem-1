@@ -53,3 +53,7 @@ $(document).ready(function(){
 
 
 });
+
+document.getElementById("placeOrderFinal").addEventListener("click", function() {
+    document.getElementById("checkoutForm").submit();
+  });
