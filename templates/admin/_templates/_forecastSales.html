@@ -1,0 +1,19 @@
+<div class="container-fluid w-75">
+    <h5 class="font-baloo font-size-20 my-2">Sales Forecast for <Strong>{{next_year_month}}</Strong></h5>
+    <table class="table table-bordered my-2">
+        <thead>
+          <tr>
+            <th scope="col">Product ID</th>
+            <th scope="col">No. of Units</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for key,value in forecasts.items() %}
+				<tr>
+                    <th class="adminProductsList" scope="row" onclick="location.href='/admin/product_details/{{ key }}';">{{key}}</th>
+					<td>{{ value }}</td>
+				</tr>
+			{% endfor %}
+        </tbody>
+      </table>
+</div>

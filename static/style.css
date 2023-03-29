@@ -781,3 +781,12 @@ button, button:focus {
 
 
 /* Checkout */
+
+/* Admin */
+
+.adminProductsList:hover {
+    cursor: pointer;
+    background-color: #D3D3D3;
+}
+
+/* Admin */

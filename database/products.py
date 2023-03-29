@@ -3,11 +3,15 @@ from sqlalchemy import text
 import random
 
 def getAllProducts():
+        products=getAllProductsForAdmin()
+        random.shuffle(products)         
+        return products    
+    
+def getAllProductsForAdmin():
         result=conn.execute(text("select * from products"))
         products=[]
         for row in result.all():
-                products.append(dict(row._mapping))
-        random.shuffle(products)         
+                products.append(dict(row._mapping))        
         return products        
 
 def getParticularProduct(product_id):

@@ -1,0 +1,27 @@
+<div class="container-fluid w-75">
+    <h5 class="font-baloo font-size-20 my-2">All Products</h5>
+    <table class="table table-bordered my-2">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Category</th>
+            <th scope="col">For</th>
+            <th scope="col">Price</th>
+            <th scope="col">Seller</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+				<tr class="adminProductsList" onclick="location.href='/admin/product_details/{{ product['id'] }}';">
+                    <th scope="row">{{product['id']}}</th>
+					<td>{{ product['title'] }}</td>
+					<td>{{ product['category'] }}</td>
+					<td>{% if product['gender'] == 'Male' %}Men{% else %}Women{% endif %}</td>
+					<td>Rs {{ product['price'] }}</td>
+					<td>{{ product['seller'] }}</td>
+				</tr>
+			{% endfor %}
+        </tbody>
+      </table>
+</div>
