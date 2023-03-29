@@ -1,4 +1,4 @@
-from database.database import engine,conn
+from database.database import conn
 from sqlalchemy import text
 import pandas as pd
 import json
@@ -13,7 +13,8 @@ summary_columns = ['year_month'] + product_ids
 summary = pd.DataFrame(columns=summary_columns)
 
 # Query data from orders table
-df = pd.read_sql(text('SELECT order_time, product_id FROM orders'), engine.connect())
+result=conn.execute(text('SELECT order_time, product_id FROM orders')).fetchall()
+df = pd.DataFrame(result)
 
 # Convert order_time to datetime and extract year and month
 df['order_time'] = pd.to_datetime(df['order_time'])
