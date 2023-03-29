@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, session,flash,jsonify
-from database.database import getOrders
 from database.review import submitReview,getReviews
 from database.orders import addToOrders,getOrders,getOrderDetails,getOrderId,getOrderStatus
 from database.cart import getAllCartItems,getProductDetailsCart,addToCart,removeFromCart,getSubtotalForCart,emptyCart

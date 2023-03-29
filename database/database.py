@@ -10,7 +10,3 @@ engine = create_engine(db_connection_string,connect_args={
 })
 
 conn=engine.connect()
-
-def getOrders():
-    result=conn.execute(text("select * from orders"))
-    return result.all()
