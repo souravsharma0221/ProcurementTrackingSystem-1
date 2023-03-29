@@ -13,7 +13,7 @@ summary_columns = ['year_month'] + product_ids
 summary = pd.DataFrame(columns=summary_columns)
 
 # Query data from orders table
-df = pd.read_sql(text('SELECT order_time, product_id FROM orders'), conn)
+df = pd.read_sql(text('SELECT order_time, product_id FROM orders'), engine.connect())
 
 # Convert order_time to datetime and extract year and month
 df['order_time'] = pd.to_datetime(df['order_time'])
