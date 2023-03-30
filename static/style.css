@@ -73,6 +73,9 @@ button, button:focus {
 }
 
 .login-header {
+    margin-top: 2%;
+    align-items: center;
+    align-content: center;
     font-weight: bold;
     text-align: center;
     background-color: #1edaf3;
@@ -158,6 +161,7 @@ button, button:focus {
 }
 
 #signupHeader {
+    width: 100%;
     text-align: center;
     background-color: #1edaf3;
     padding: 8px 0px;
