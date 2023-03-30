@@ -33,6 +33,9 @@ summary_data.columns = summary.columns
 # Convert summary data to numeric data types
 summary_data = summary_data.astype({col: np.float64 for col in summary_data.columns if col != 'year_month'})
 
+# Fill NaN values with 0
+summary_data = summary_data.fillna(0)
+
 # Append summary data to summary table
 data_frame = summary.append(summary_data, ignore_index=True)
 

@@ -24,7 +24,7 @@
                                 {% set matching_order_id = submittedReviews|selectattr('order_id', '==', product.order_id)|list %}
                                 {% set order_status = orderStatus|selectattr('order_id', '==', product.order_id)|list %}
                                 {% if matching_reviews and matching_order_id %}
-                                <p class="fs-1" style="color: gold;"><strong>{{order_status[0]['status']}}</strong></p>
+                                <p class="fs-1"><strong style="color: gold;">{{order_status[0]['status']}}</strong> {{order_status[0]['delivered_on']}}</p>
                                 <br>
                                  <button type="button" disabled class="btn btn-secondary">Reviewed</button>
                                 {% elif order_status[0]['status']=="Delivered" %}

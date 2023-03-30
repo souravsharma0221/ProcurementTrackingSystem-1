@@ -1,0 +1,30 @@
+<div class="container-fluid w-75">
+    <h5 class="font-baloo font-size-20 my-2">All Orders</h5>
+    <table class="table table-bordered my-2">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">User ID</th>
+            <th scope="col">Order Time</th>
+            <th scope="col">Order Status</th>
+            <th scope="col">Expected Delivery</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for order in allOrders %}
+            {% set order_status = orderStatus|selectattr('order_id', '==', order['id'])|list %}
+            {% set expected_delivery = order_status[0]['expected_delivery'] %}
+            {% set status = order_status[0]['status'] %}
+				<tr>
+          <th scope="row">{{order['id']}}</th>
+					<td>{{ order['user_id'] }}</td>
+					<td>{{ order['order_time'] }}</td>
+					<td>{{ status }}</td>
+					<td>{{ expected_delivery }}</td>
+					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='/admin/order_details/{{ order['id'] }}';">&rightarrow;</button></td>
+				</tr>
+			{% endfor %}
+        </tbody>
+      </table>
+</div>

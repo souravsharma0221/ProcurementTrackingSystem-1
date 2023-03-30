@@ -1,0 +1,45 @@
+<!-- Orders section  -->
+<section id="cart" class="py-3 mb-5">
+    <div class="container-fluid w-75" style="width: 100%;">
+        <p class="fs-1"><strong>Order Status: </strong> {{order_status['status']}}</p>
+        <p class="fs-1"><strong>Expected Delivery: </strong> {{order_status['expected_delivery']}}</p>
+        {% if order_status['status']=="In-Process" %}
+        <form method="post" action="{{url_for('update_order_status')}}">
+            <input type="hidden" name="order_id" value="{{order['id']}}">
+            <input type="hidden" name="status" value="In-Transit">
+            <button type="submit" class="btn btn-success">Mark as In-Transit</button>
+        </form>
+        {% else %}
+        <form method="post" action="{{url_for('update_order_status')}}">
+            <input type="hidden" name="order_id" value="{{order['id']}}">
+            <input type="hidden" name="status" value="Delivered">
+            <button type="submit" class="btn btn-success">Mark as Delivered</button>
+        </form>
+        {% endif %}
+        <hr class="border border-primary border-3 opacity-75">
+        <!-- Order items   -->
+        <div class="row">
+            <div class="col-sm-9">
+                {% for product in products %}
+                        <!-- order item -->
+                        <div class="row border-bottom py-3 mt-3">
+                            <div class="col-sm-2">
+                                <img src="{{product.img}}" style="height: 180px;" alt="order"
+                                     class="img-fluid">
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="font-baloo font-size-20">{{product.title}}</h5>
+                                <small>by {{product.seller}}</small>
+
+                            </div>
+                        </div>
+                        <!-- !order item -->
+                        {% endfor %}
+                        
+            </div>
+            
+            <!--  !Order items   -->
+        </div>
+        <hr class="border border-primary border-3 opacity-75">
+</section>
+<!-- !Orders section  -->

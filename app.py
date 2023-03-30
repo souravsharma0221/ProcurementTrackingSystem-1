@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request, redirect, session,flash,jsonify
-from database.review import submitReview,getReviews
-from database.orders import addToOrders,getOrders,getOrderDetails,getOrderId,getOrderStatus
+from database.review import submitReview,getReviews,rateSellers
+from database.orders import addToOrders,getOrders,getOrderDetails,getOrderId,getOrderStatus,getOrdersForAdmin,getParticularOrder,getParticularOrderStatus,getOrderDetailsForParticularOrder,updateOrderStatus
 from database.cart import getAllCartItems,getProductDetailsCart,addToCart,removeFromCart,getSubtotalForCart,emptyCart
 from database.favourites import getAllFavourites,addToFavourites,removeFromFavourites,getProductDetailsInFavourites
 from database.products import getAllProducts,getParticularProduct,getSeller,getAllProductsForAdmin
 from models.review_analysis.review import classifyReview
 from models.demandForecasting.forecastDemand import forecasts
+from models.demandForecasting.previousData import product_ids,data_frame
 from wtforms import Form, TextAreaField, validators, SelectField
-import pickle, joblib,time,random,os,json
+import pickle, joblib,time,random,os,json,pandas as pd
 from datetime import datetime,timedelta
 from database.loginSignup import verify_credentials,addUser,getUserId,getProfile
 app = Flask(__name__)
@@ -214,7 +215,12 @@ def submit_review():
 @app.route('/admin/home')
 def admin_home():  
   if checkLogin():
-    return render_template('admin/index.html')
+    data = data_frame.astype({col: 'int' for col in data_frame.columns if col != 'year_month'})
+    # Format year_month column as "Month in words, YYYY"
+    data['year_month'] = pd.to_datetime(data['year_month'], format='%Y-%m').dt.strftime('%B, %Y')  
+    # Reverse the order of the rows
+    data = data.iloc[::-1]  
+    return render_template('admin/index.html',product_ids=product_ids,data=data)
   else:
     return redirect('/login')  
   
@@ -237,11 +243,21 @@ def admin_forecast_sales():
     return render_template('admin/forecastSales.html',forecasts=forecasts,next_year_month=next_year_month)
   else:
     return redirect('/login') 
+  
+@app.route('/admin/orders')
+def admin_orders():  
+  if checkLogin():
+    allOrders=getOrdersForAdmin()
+    orderStatus=getOrderStatus(allOrders)
+    return render_template('admin/orders.html',allOrders=allOrders,orderStatus=orderStatus)
+  else:
+    return redirect('/login') 
    
 @app.route('/admin/best_suppliers')
 def admin_best_suppliers():  
   if checkLogin():
-    return render_template('admin/index.html')
+    rating=rateSellers()
+    return render_template('admin/bestSuppliers.html',rating=rating)
   else:
     return redirect('/login')  
   
@@ -258,6 +274,27 @@ def admin_product_details(product_id):
   if checkLogin():
     product=getParticularProduct(product_id)
     return render_template('admin/productDetails.html',product=product) 
+  else:
+    return redirect('/login') 
+   
+@app.route('/admin/order_details/<order_id>')
+def admin_order_details(order_id):  
+  if checkLogin():
+    order=getParticularOrder(order_id)
+    order_status=getParticularOrderStatus(order_id)
+    products=getOrderDetailsForParticularOrder(order)
+    return render_template('admin/orderDetails.html',order=order,order_status=order_status,products=products) 
+  else:
+    return redirect('/login') 
+
+@app.route('/admin/update_order_status',methods=['GET','POST'])
+def update_order_status():
+  if checkLogin():
+    if(request.method == 'POST'):
+        order_id = request.form.get('order_id')
+        status = request.form.get('status')
+        updateOrderStatus(order_id,status)
+    return redirect('/admin/orders') 
   else:
     return redirect('/login')  
   

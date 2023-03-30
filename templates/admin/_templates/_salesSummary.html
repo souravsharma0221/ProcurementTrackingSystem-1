@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <h5 class="font-baloo font-size-20 my-2">Sales Summary</h5>
+    <table class="table table-bordered my-2">
+        <thead>
+          <tr>
+            <th scope="col">Month</th>
+            {% for id in product_ids %}
+            <th scope="col" class="adminProductsList" onclick="location.href='/admin/product_details/{{ id }}';">{{id}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for index, row in data.iterrows() %}
+            <tr>
+              <td>{{ row['year_month'] }}</td>
+              {% for col in data.columns[1:] %}
+              <td>{{ row[col] }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>

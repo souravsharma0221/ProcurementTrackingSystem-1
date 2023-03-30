@@ -1,7 +1,7 @@
 from database.database import conn
 from sqlalchemy import text
 import json
-from datetime import datetime
+import datetime
 
 def addToOrders(userId,productId,timestamp,address,state,city,pincode):
      result=conn.execute(text("insert into orders(user_id,product_id,order_time,address,state,city,pincode) values (:userId,:productId,:timestamp,:address,:state,:city,:pincode)").bindparams(userId=userId,productId=productId,timestamp=timestamp,address=address,state=state,city=city,pincode=pincode))
@@ -9,6 +9,13 @@ def addToOrders(userId,productId,timestamp,address,state,city,pincode):
 
 def getOrders(userId):
      result=conn.execute(text("select * from orders where user_id=:id order by order_time desc").bindparams(id=userId)).all()  
+     orders=[]
+     for row in result:
+          orders.append(dict(row._mapping))
+     return orders 
+ 
+def getOrdersForAdmin():
+     result=conn.execute(text("select * from orders where id in (select order_id from order_status where status!=:status) order by order_time desc").bindparams(status="Delivered")).all()  
      orders=[]
      for row in result:
           orders.append(dict(row._mapping))
@@ -38,4 +45,26 @@ def getOrderStatus(orders):
           for row in result:
            status.append(dict(row._mapping))
      return status
-          
+
+def getParticularOrder(order_id):
+        result=conn.execute(text("select * from orders where id=:id").bindparams(id=order_id)).fetchone()
+        return dict(result._mapping)
+
+def getParticularOrderStatus(order_id):
+        result=conn.execute(text("select * from order_status where order_id=:id").bindparams(id=order_id)).fetchone()
+        return dict(result._mapping)
+
+def getOrderDetailsForParticularOrder(order):
+     ids=json.loads(order['product_id'])
+     products=[]
+     for id in ids:
+          result=conn.execute(text("select * from products where id=:id").bindparams(id=id)).fetchone()
+          products.append(dict(result._mapping))     
+     return products
+
+def updateOrderStatus(order_id,status):
+     if(status=="Delivered"):
+           current_date = datetime.date.today().strftime('%Y-%m-%d')
+           conn.execute(text('update order_status set status=:status, delivered_on=:date where order_id=:id').bindparams(status=status,id=order_id,date=current_date))
+     else:
+           conn.execute(text('update order_status set status=:status where order_id=:id').bindparams(status=status,id=order_id))
