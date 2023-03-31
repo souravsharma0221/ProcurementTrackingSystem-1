@@ -1,0 +1,7 @@
+{% include './admin/header.html' %}
+{% if not allOrders %}
+{% include 'admin/_templates/notFound/_inventoryOrders.html' %}
+{% else %}
+{% include './admin/_templates/_inventoryOrders.html' %}
+{% endif %}
+{% include './admin/footer.html' %}

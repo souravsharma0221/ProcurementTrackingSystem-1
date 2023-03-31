@@ -6,9 +6,10 @@
             <th scope="col">ID</th>
             <th scope="col">Title</th>
             <th scope="col">Category</th>
+            <th scope="col">Quantity</th>
             <th scope="col">For</th>
             <th scope="col">Price</th>
-            <th scope="col">Seller</th>
+            <th scope="col">Supplier</th>
           </tr>
         </thead>
         <tbody>
@@ -17,6 +18,7 @@
                     <th scope="row">{{product['id']}}</th>
 					<td>{{ product['title'] }}</td>
 					<td>{{ product['category'] }}</td>
+					<td>{{ product['quantity'] }}</td>
 					<td>{% if product['gender'] == 'Male' %}Men{% else %}Women{% endif %}</td>
 					<td>Rs {{ product['price'] }}</td>
 					<td>{{ product['seller'] }}</td>

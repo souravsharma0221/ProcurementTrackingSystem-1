@@ -6,6 +6,9 @@ import datetime
 def addToOrders(userId,productId,timestamp,address,state,city,pincode):
      result=conn.execute(text("insert into orders(user_id,product_id,order_time,address,state,city,pincode) values (:userId,:productId,:timestamp,:address,:state,:city,:pincode)").bindparams(userId=userId,productId=productId,timestamp=timestamp,address=address,state=state,city=city,pincode=pincode))
      order_status_result=conn.execute(text("insert into order_status(order_id,status,expected_delivery) values (:order_id,:status,:date)").bindparams(order_id=result.lastrowid,status="In-Process",date="2022-06-12"))
+     product_ids=json.loads(productId)
+     for id in product_ids:
+          conn.execute(text('update products set quantity=quantity-1 where id=:id').bindparams(id=id))
 
 def getOrders(userId):
      result=conn.execute(text("select * from orders where user_id=:id order by order_time desc").bindparams(id=userId)).all()  

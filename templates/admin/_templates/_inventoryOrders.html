@@ -1,0 +1,34 @@
+<div class="container-fluid w-75">
+    <h5 class="font-baloo font-size-20 my-2">Inventory Orders</h5>
+    <table class="table table-bordered my-2">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Product ID</th>
+            <th scope="col">Order Time</th>
+            <th scope="col">Order Status</th>
+            <th scope="col">Supplier</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for order in allOrders %}
+            {% set product_zero = products|selectattr('id', '==', order['product_id'])|list %}
+		  <tr>
+          <th scope="row">{{order['id']}}</th>
+					<td class="adminProductsList" onclick="location.href='/admin/product_details/{{ order['product_id'] }}';">{{ order['product_id'] }}</td>
+					<td>{{ order['order_time'] }}</td>
+					<td>{{ order['status'] }}</td>
+					<td>{{ order['supplier'] }}</td>
+                    {% if order['status']=="In-Buffer" and product_zero %}
+					<td><button type="button" class="btn btn-outline-primary" onclick="location.href='/admin/add_stock_to_inventory/{{ order['id'] }}';">Add to Inventory</button></td>
+                    {% elif order['status']=="In-Inventory" %}
+                    <td><button type="button" class="btn btn-secondary" disabled>Added to Inventory</button></td>
+                    {% else %}
+                    <td><button type="button" class="btn btn-secondary" disabled>Stock not finished yet</button></td>
+                    {% endif %}
+				</tr>
+			{% endfor %}
+        </tbody>
+      </table>
+</div>

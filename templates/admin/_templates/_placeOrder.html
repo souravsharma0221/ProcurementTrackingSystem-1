@@ -1,0 +1,23 @@
+<body class="paymentBody">
+    <header id="paymentHeader"> 
+        <div class="paymentContainer">
+            <div class="left">
+                <h3>Place Order</h3>
+                <form method="post" action="{{url_for('admin_order_success')}}">
+                    Product ID : {{product_id}}<br>
+                    <input type="hidden" name="product_id" value="{{product_id}}">
+                    Quantity
+                    <input type="text" name="quantity" value="{{quantity}}" required>
+                    
+                    Supplier <br>
+                    <select name="supplier" required>
+                    {% for key,value in rating.items() %}
+                      <option value="{{key}}">{{key}}</option>
+                    {% endfor %}
+                    </select>
+                    <input  value="Place Order" type="submit" name="">
+                </form>
+            </div>
+        </div>
+    </header>
+    </body>

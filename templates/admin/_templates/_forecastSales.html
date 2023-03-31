@@ -5,13 +5,19 @@
           <tr>
             <th scope="col">Product ID</th>
             <th scope="col">No. of Units</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
             {% for key,value in forecasts.items() %}
 				<tr>
-                    <th class="adminProductsList" scope="row" onclick="location.href='/admin/product_details/{{ key }}';">{{key}}</th>
+          <th class="adminProductsList" scope="row" onclick="location.href='/admin/product_details/{{ key }}';">{{key}}</th>
 					<td>{{ value }}</td>
+					<td><form method="post" action="{{url_for('admin_place_order')}}">
+            <input type="hidden" name="product_id" value="{{key}}">
+            <input type="hidden" name="quantity" value="{{value}}">
+            <button type="submit" class="btn btn-outline-primary">Order</button>
+          </form></td>
 				</tr>
 			{% endfor %}
         </tbody>
