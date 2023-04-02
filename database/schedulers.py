@@ -27,7 +27,7 @@ def find_products_below_threshold():
     for row in results:
         products.append(int(row[0]))
     if len(row)>0:
-        message="Products with following product IDs are below threshold value\n"+', '.join(products)
+        message="Products with following product IDs are below threshold value:\n[" + ', '.join(str(x) for x in products) + "]"
         send_email(message)    
 
 def configure_scheduler():
@@ -55,7 +55,7 @@ def send_email(message):
             }
         )
     except Exception as e:
-        pass   
+        pass 
 
  
 
