@@ -57,3 +57,20 @@ $(document).ready(function(){
 document.getElementById("placeOrderFinal").addEventListener("click", function() {
     document.getElementById("checkoutForm").submit();
   });
+
+  // Get all list items in the navigation bar
+var navItems = document.querySelectorAll('.navbar-nav .nav-item');
+
+// Add an event listener to each list item
+navItems.forEach(function(item) {
+  item.addEventListener('click', function() {
+    // Remove the active class from all list items
+    navItems.forEach(function(item) {
+      item.classList.remove('activeMenuItem');
+    });
+    
+    // Add the active class to the selected list item
+    item.classList.add('activeMenuItem');
+  });
+});
+

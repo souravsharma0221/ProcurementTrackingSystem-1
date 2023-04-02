@@ -794,3 +794,12 @@ button, button:focus {
 }
 
 /* Admin */
+
+
+.activeMenuItem {
+    background-color: #d60625;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #7fef9e;
+
+}

@@ -6,4 +6,5 @@ statsmodels
 wtforms
 joblib
 scikit-learn
-
+apscheduler
+boto3

@@ -11,8 +11,12 @@ from models.demandForecasting.previousData import getProductIds,getDataFrame
 import random,os,json,pandas as pd
 from datetime import datetime,timedelta
 from database.loginSignup import verify_credentials,addUser,getUserId,getProfile
+from database.schedulers import configure_scheduler,send_email
+
 app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
+
+configure_scheduler()
 
 def checkLogin():
     if 'user_id' in session:
