@@ -2,10 +2,14 @@ from database.database import conn
 from sqlalchemy import text
 import json
 import datetime
+from models.expectedDelivery.expectedDelivery import getNumberOfDays
 
 def addToOrders(userId,productId,timestamp,address,state,city,pincode):
      result=conn.execute(text("insert into orders(user_id,product_id,order_time,address,state,city,pincode) values (:userId,:productId,:timestamp,:address,:state,:city,:pincode)").bindparams(userId=userId,productId=productId,timestamp=timestamp,address=address,state=state,city=city,pincode=pincode))
-     order_status_result=conn.execute(text("insert into order_status(order_id,status,expected_delivery) values (:order_id,:status,:date)").bindparams(order_id=result.lastrowid,status="In-Process",date="2022-06-12"))
+     number_of_days=getNumberOfDays(str(pincode))
+     new_date_obj = timestamp + datetime.timedelta(days=number_of_days)
+     expected_delivery = new_date_obj.strftime('%Y-%m-%d')
+     order_status_result=conn.execute(text("insert into order_status(order_id,status,expected_delivery) values (:order_id,:status,:date)").bindparams(order_id=result.lastrowid,status="In-Process",date=expected_delivery))
      product_ids=json.loads(productId)
      for id in product_ids:
           conn.execute(text('update products set quantity=quantity-1 where id=:id').bindparams(id=id))
