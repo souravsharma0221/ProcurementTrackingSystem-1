@@ -1,10 +1,10 @@
 import joblib
 
 # Load the encoder from a file
-le = joblib.load('encoder.joblib')
+le = joblib.load('models/expectedDelivery/encoder.joblib')
 
 # Load the model from a file
-model = joblib.load('model.joblib')
+model = joblib.load('models/expectedDelivery/model.joblib')
     
 def getNumberOfDays(destination_pincode):
     # make predictions using the loaded model

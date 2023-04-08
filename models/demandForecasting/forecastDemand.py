@@ -2,10 +2,19 @@ from models.demandForecasting.previousData import getProductIds,getDataFrame
 import pandas as pd
 import numpy as np
 from statsmodels.tsa.arima.model import ARIMA
+import datetime
 
 def getForecasts():
+    # Get the current year and month
+    now = datetime.datetime.now()
+    current_year_month = now.strftime('%Y-%m')
+    
     product_ids=getProductIds()
     data_frame=getDataFrame()
+
+    # Filter the DataFrame to exclude rows with the current month
+    data_frame = data_frame[data_frame['year_month'] != current_year_month]
+
     # Split summary table into separate tables for each product
     product_tables = {}
     for product_id in product_ids:
