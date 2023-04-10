@@ -38,7 +38,7 @@ def rateSellers():
     for seller in response:
         total_reviews = response[seller]['positive'] + response[seller]['negative']
         if(total_reviews!=0):
-            percentage_positive_reviews = (response[seller]['positive'] / total_reviews) * 100
+            percentage_positive_reviews = round((response[seller]['positive'] / total_reviews) * 100,2)
             response[seller]['percentage_positive_reviews'] = percentage_positive_reviews
             response[seller]['total_reviews'] = total_reviews
             weighted_score = (percentage_positive_reviews * total_reviews) / (total_reviews + C)

@@ -47,7 +47,7 @@ def login():
             else:
                 return redirect('user/home')
         else:
-                flash("Incorrent credentials") 
+                flash("Incorrect credentials") 
     return render_template("login.html")   
 
 # User Section 

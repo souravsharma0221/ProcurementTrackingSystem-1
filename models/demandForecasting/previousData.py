@@ -44,7 +44,7 @@ def getDataFrame():
     summary_data = summary_data.fillna(0)
 
     # Append summary data to summary table
-    data_frame = summary.append(summary_data, ignore_index=True)
+    data_frame = pd.concat([summary,summary_data], ignore_index=True)
 
     return data_frame
 
