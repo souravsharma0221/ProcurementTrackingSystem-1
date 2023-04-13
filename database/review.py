@@ -1,5 +1,6 @@
 from database.database import conn
 from sqlalchemy import text
+import math
 
 def submitReview(userId,productId,orderId,review,seller,classification,probability):
     result=conn.execute(text("insert into reviews(user_id,product_id,order_id,seller,review,classification,probability) values (:userId,:productId,:orderId,:seller,:review,:classification,:probability)").bindparams(userId=userId,productId=productId,orderId=orderId,review=review,seller=seller,classification=classification,probability=probability))
@@ -34,14 +35,13 @@ def rateSellers():
                 response[seller] = {'positive': 0, 'negative': count}
 
     # Calculate the weighted score for each seller
-    C = 100  # adjust the weight given to total number of reviews
     for seller in response:
         total_reviews = response[seller]['positive'] + response[seller]['negative']
         if(total_reviews!=0):
             percentage_positive_reviews = round((response[seller]['positive'] / total_reviews) * 100,2)
             response[seller]['percentage_positive_reviews'] = percentage_positive_reviews
             response[seller]['total_reviews'] = total_reviews
-            weighted_score = (percentage_positive_reviews * total_reviews) / (total_reviews + C)
+            weighted_score = (percentage_positive_reviews * math.log10(total_reviews)) / (100)
             response[seller]['weighted_score'] = weighted_score
             
     # Sort the response in descending order of percentage_positive_reviews
