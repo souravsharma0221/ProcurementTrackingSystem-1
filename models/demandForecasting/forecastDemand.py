@@ -48,5 +48,17 @@ def getForecasts():
         forecast = forecast_sales(product_table)
         forecasts[product_id] = forecast
 
-    return forecasts    
+    return forecasts 
+
+def getBestSelling():
+    forecasts = getForecasts()
+
+    # Convert the forecasts dictionary to a list of key-value pairs
+    forecast_list = [(product_id, forecast) for product_id, forecast in forecasts.items()]
+
+    # Sort the forecast list in descending order of forecast values
+    sorted_forecasts = sorted(forecast_list, key=lambda x: x[1], reverse=True)
+
+    # Get the top 10 products with the highest forecast values
+    return sorted_forecasts[:10]   
 

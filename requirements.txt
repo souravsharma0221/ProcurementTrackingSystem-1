@@ -8,3 +8,4 @@ joblib
 scikit-learn
 apscheduler
 boto3
+flask_mail

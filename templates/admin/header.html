@@ -42,7 +42,7 @@
     <span id="stukartlogo">Pts Admin</span>
     <!-- Primary navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark color-second-bg" id="navbarHome">
-        <div class="container-fluid">
+        <div style="margin-left: 15%;"  class="container-fluid">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -56,6 +56,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-size-20" href="{{ url_for('admin_forecast_sales') }}">Forecast Sales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-size-20" href="{{ url_for('admin_best_selling') }}">Best Selling</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-size-20" href="{{ url_for('admin_orders') }}">Customer Orders</a>

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session,flash,jsonify
+from flask_mail import Mail,Message
 from database.review import submitReview,getReviews,rateSellers
 from database.orders import addToOrders,getOrders,getOrderDetails,getOrderId,getOrderStatus,getOrdersForAdmin,getParticularOrder,getParticularOrderStatus,getOrderDetailsForParticularOrder,updateOrderStatus
 from database.cart import getAllCartItems,getProductDetailsCart,addToCart,removeFromCart,getSubtotalForCart,emptyCart
@@ -6,17 +7,52 @@ from database.favourites import getAllFavourites,addToFavourites,removeFromFavou
 from database.products import getAllProducts,getParticularProduct,getSeller,getAllProductsForAdmin,getProductsWithZeroQuantity,updateProductQuantity
 from database.inventoryOrders import placeOrderForInventory,getInventoryOrders,getInventoryOrderInfo,updateInventoryOrderStatus
 from models.review_analysis.review import classifyReview
-from models.demandForecasting.forecastDemand import getForecasts
+from models.demandForecasting.forecastDemand import getForecasts,getBestSelling
 from models.demandForecasting.previousData import getProductIds,getDataFrame
-import random,os,json,pandas as pd
+import random,os,json,math,pandas as pd
 from datetime import datetime,timedelta
 from database.loginSignup import verify_credentials,addUser,getUserId,getProfile
-from database.schedulers import configure_scheduler,send_email
+from apscheduler.schedulers.background import BackgroundScheduler
+from database.database import conn
+from sqlalchemy import text
 
 app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
 
-configure_scheduler()
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = os.environ['MAIL_USERNAME']
+app.config['MAIL_PASSWORD'] = os.environ['MAIL_PASSWORD']
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+
+def set_threshold():
+    forecasts=getForecasts()
+    for key,value in forecasts.items():
+        conn.execute(text('update products set threshold=:value where id=:key').bindparams(key=key,value=math.ceil(value*0.3)))
+
+def find_products_below_threshold():
+    results=conn.execute(text('select id from products where quantity<threshold')).all()
+    products=[]
+    for row in results:
+        products.append(int(row[0]))
+    if len(row)>0:
+        message="Products with following product IDs are below threshold value:\n[" + ', '.join(str(x) for x in products) + "]"
+        send_email(message)    
+
+def configure_scheduler():
+    scheduler=BackgroundScheduler()
+    scheduler.add_job(set_threshold,'interval',hours=24)
+    scheduler.add_job(find_products_below_threshold,'interval',hours=1)
+    scheduler.start()
+
+def send_email(message):
+    with app.app_context(): # set up application context
+        msg = Message('Action required for inventory!!', sender = 'mittusudan@gmail.com', recipients = ['bmohits2403@gmail.com'])
+        msg.body = message
+        mail.send(msg)
 
 def checkLogin():
     if 'user_id' in session:
@@ -251,6 +287,14 @@ def admin_forecast_sales():
   else:
     return redirect('/login') 
   
+@app.route('/admin/best_selling')
+def admin_best_selling():  
+  if checkLogin():
+    bestSelling=getBestSelling()
+    return render_template('admin/bestselling.html',bestSelling=bestSelling)
+  else:
+    return redirect('/login') 
+  
 @app.route('/admin/orders')
 def admin_orders():  
   if checkLogin():
@@ -353,4 +397,5 @@ def admin_order_success():
 # // Admin Section       
       
 if __name__ == '__main__':
+    configure_scheduler()
     app.run()

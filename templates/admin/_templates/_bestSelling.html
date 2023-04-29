@@ -1,0 +1,19 @@
+<div class="container-fluid w-75">
+    <h5 class="font-baloo font-size-20 my-2">Best Selling Products</h5>
+    <table class="table table-bordered my-2">
+        <thead>
+          <tr>
+            <th scope="col">Product ID</th>
+            <th scope="col">Forecasts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for (product_id, forecast) in bestSelling %}
+            <tr>
+              <th class="adminProductsList" onclick="location.href='/admin/product_details/{{ product_id }}';" scope="row">{{product_id}}</th>
+              <td>{{ forecast }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
